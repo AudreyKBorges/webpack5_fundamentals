@@ -1,9 +1,12 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-    entry: './src/index.js',
+    entry: {
+        index: {import: './src/index.js', dependOn: 'shared'},
+        sum: {import: './src/js/sum.js', dependOn: 'shared'},
+        shared: 'lodash'
+    },
     devServer: {
         static: path.join(__dirname, 'dist'),
         compress: true,
@@ -18,11 +21,16 @@ module.exports = {
             },
         ]
     },
+    optimization: {
+        splitChunks: {
+            chunks: 'all'
+        }
+    },
     plugins: [
         new HtmlWebpackPlugin(),
     ],
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js',
+        filename: '[name].bundle.js',
     },
 };

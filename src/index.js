@@ -1,7 +1,4 @@
-import './main.scss';
+import _ from 'lodash';
+import './scss/main.scss';
 
-const getName = (name) => {
-    console.log(`Hello ${name}`);
-}
-
-getName('Audrey');
+console.log(_.join(['Index', 'module', 'loaded!'], ' '));
